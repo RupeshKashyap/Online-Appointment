@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,12 @@ public class HomeController {
 		LOGGER.debug("error executing");
 		return "error";
 	}
+	@GetMapping("/registrationpage")
+	public String registerRedirect() {
+		LOGGER.debug("Home page executing");
+		System.out.println("Hello Executing");
+		return "registrationpage";
+	}
 
 	// this method is only for testing purpose
 	@RequestMapping(value = {"/getotp"},method = RequestMethod.POST)
@@ -69,11 +76,15 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = {"/otpverify"} , method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity vefifyOTP(@RequestBody MobileNmber mobileNumber, HttpServletRequest request,HttpServletResponse response){
-		LOGGER.info("json",mobileNumber.toString());
+	public ResponseEntity vefifyOTP(@RequestBody Map<String,Object> map, HttpServletRequest request,HttpServletResponse response){
+		LOGGER.info("json",map.toString());
+		LOGGER.info("json",map.get("otp"));
+		System.out.println("map "+map);
+		System.out.println(map.get("otp"));
+		System.out.println(map.get("mobileNumber"));
 		try{
-		if(mobileNumber.getMobileNumber()!=null && mobileNumber.getOtp()!=null){
-
+		if(map.get("mobileNumber")!=null && map.get("mobileNumber")!=null){
+			System.out.println("otp verifying");
 			// find my mobile number and verify the new otp and saves atp
 
 		}
